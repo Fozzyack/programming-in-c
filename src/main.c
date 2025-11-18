@@ -4,11 +4,12 @@
 
 #include "common.h"
 #include "file.h"
+#include "parse.h"
 
 void print_usage(char *argv[]) {
     printf("Usage: %s -n -f <database file>\n", argv[0]);
-    printf("\t -n  - create new database file\n");
-    printf("\t -f  - (required) path to database file\n");
+    printf("\t-n - create new database file\n");
+    printf("\t-f - (required) path to database file\n");
 }
 
 int main(int argc, char *argv[]) {
@@ -18,6 +19,7 @@ int main(int argc, char *argv[]) {
     char *filepath = NULL;
 
     int dbfd = -1;
+    struct db_header_t *dbhd = NULL;
 
     while ((c = getopt(argc, argv, "nf:")) != -1) {
         switch (c) {
@@ -46,12 +48,23 @@ int main(int argc, char *argv[]) {
             printf("Unable to create database file \n");
             return -1;
         }
+        if (create_db_header(dbfd, &dbhd) == STATUS_ERROR) {
+            printf("Error: Could not create new database header\n");
+            return -1;
+        }
     } else {
         dbfd = open_db_file(filepath);
         if (dbfd == STATUS_ERROR) {
             printf("Unable to open database file\n");
             return -1;
         }
+        if (validate_db_header(dbfd, &dbhd)) {
+            printf("Error: Could not read new database header\n");
+            return -1;
+        }
     }
+
+    output_file(dbfd, dbhd);
+
     return 0;
 }
