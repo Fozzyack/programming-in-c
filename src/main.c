@@ -3,6 +3,7 @@
 #include <stdio.h>
 
 
+
 void print_usage(char *argv[]) {
     printf("Usage: %s -n -f <database file>\n", argv[0]);
     printf("\t -n  - create new database file\n");
@@ -14,6 +15,7 @@ int main(int argc, char *argv[]) {
     int c;
     bool newfile = false;
     char *filepath = NULL;
+
 
     while((c = getopt(argc, argv, "nf:")) != -1) {
         switch(c) {

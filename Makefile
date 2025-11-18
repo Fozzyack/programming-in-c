@@ -12,4 +12,4 @@ $(TARGET): $(OBJ)
 	gcc -o $@ $?
 
 obj/%.o: src/%.c
-	gcc -c $< -o $@
+	gcc -c $< -o $@ -Iinclude
