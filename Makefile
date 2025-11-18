@@ -6,7 +6,7 @@ default: $(TARGET)
 
 clean:
 	rm -rf obj/*.o
-	rm -rf bin/*
+	rm -rf bin/*.out
 
 $(TARGET): $(OBJ)
 	gcc -o $@ $?
