@@ -16,7 +16,6 @@ int create_db_file(char *filepath) {
         return STATUS_ERROR;
     }
     return fd;
-
 }
 
 int open_db_file(char *filepath) {
@@ -26,5 +25,4 @@ int open_db_file(char *filepath) {
         return STATUS_ERROR;
     }
     return fd;
-
 }

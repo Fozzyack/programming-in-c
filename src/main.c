@@ -2,7 +2,6 @@
 #include <stdbool.h>
 #include <stdio.h>
 
-
 #include "common.h"
 #include "file.h"
 
@@ -20,18 +19,18 @@ int main(int argc, char *argv[]) {
 
     int dbfd = -1;
 
-    while((c = getopt(argc, argv, "nf:")) != -1) {
-        switch(c) {
-            case 'n':
-                newfile = true;
-                break;
-            case 'f':
-                filepath = optarg;
-                break;
-            case '?':
-                printf("Unkown argument -%c\n", c);
-            default:
-                return -1;
+    while ((c = getopt(argc, argv, "nf:")) != -1) {
+        switch (c) {
+        case 'n':
+            newfile = true;
+            break;
+        case 'f':
+            filepath = optarg;
+            break;
+        case '?':
+            printf("Unkown argument -%c\n", c);
+        default:
+            return -1;
         }
     }
 
