@@ -7,6 +7,7 @@
 int create_db_file(char *filepath) {
     int fd = open(filepath, O_RDONLY);
     if (fd != -1) {
+        printf("Error: Cannot create database file\n\tFile already exists\n");
         close(fd);
         return STATUS_ERROR;
     }
