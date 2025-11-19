@@ -130,9 +130,12 @@ int read_employees(int fd, struct dbheader_t *dbhd,
 
 int list_employees(struct dbheader_t *dbhd, struct employee_t *employees) {
 
-    for (int i = 0; i < ntohs(dbhd->count); i++) {
+    for (int i = 0; i < dbhd->count; i++) {
         struct employee_t emp = employees[i];
-        printf("%s %s %d\n", emp.name, emp.address, ntohl(emp.hours));
+        printf("Employee %d\n", i);
+        printf("\tName: %s\n", emp.name);
+        printf("\tAddress: %s\n", emp.address);
+        printf("\tHours: %d\n", emp.hours);
     }
 
     return STATUS_SUCCESS;

@@ -88,16 +88,16 @@ int main(int argc, char *argv[]) {
         }
     }
 
-    if (output_file(dbfd, dbhd, employees) == STATUS_ERROR) {
-        printf("Error: Failed to write to db\n");
-        return -1;
-    }
-
     if (list_all) {
         if (list_employees(dbhd, employees) == STATUS_ERROR) {
             printf("Error: Failed to list employees\n");
             return -1;
         }
+    }
+
+    if (output_file(dbfd, dbhd, employees) == STATUS_ERROR) {
+        printf("Error: Failed to write to db\n");
+        return -1;
     }
 
     close(dbfd);
