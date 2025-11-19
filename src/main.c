@@ -19,6 +19,7 @@ int main(int argc, char *argv[]) {
 
     int c;
     bool newfile = false;
+    bool list_all = false;
     char *filepath = NULL;
     char *addString = NULL;
     int dbfd = -1;
@@ -26,7 +27,7 @@ int main(int argc, char *argv[]) {
     struct dbheader_t *dbhd;
     struct employee_t *employees;
 
-    while ((c = getopt(argc, argv, "nf:a:")) != -1) {
+    while ((c = getopt(argc, argv, "nlf:a:")) != -1) {
         switch (c) {
         case 'n':
             newfile = true;
@@ -36,6 +37,9 @@ int main(int argc, char *argv[]) {
             break;
         case 'a':
             addString = optarg;
+            break;
+        case 'l':
+            list_all = true;
             break;
         case '?':
             printf("Unkown argument -%c\n", c);
@@ -87,6 +91,13 @@ int main(int argc, char *argv[]) {
     if (output_file(dbfd, dbhd, employees) == STATUS_ERROR) {
         printf("Error: Failed to write to db\n");
         return -1;
+    }
+
+    if (list_all) {
+        if (list_employees(dbhd, employees) == STATUS_ERROR) {
+            printf("Error: Failed to list employees\n");
+            return -1;
+        }
     }
 
     close(dbfd);

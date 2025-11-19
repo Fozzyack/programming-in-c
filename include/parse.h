@@ -2,10 +2,7 @@
 #define PARSE_H
 
 #define HEADER_MAGIC 0x4c4c4144
-#define HEADER_MAGIC 0x4c4c4144
-
 #define NAME_LEN 256
-
 #define ADDRESS_LEN 256
 
 struct dbheader_t {
@@ -26,5 +23,6 @@ int validate_db_header(int fd, struct dbheader_t **);
 int read_employees(int fd, struct dbheader_t *, struct employee_t **);
 int output_file(int fd, struct dbheader_t *, struct employee_t *);
 int add_employee(struct dbheader_t *, struct employee_t **, char *);
+int list_employees(struct dbheader_t *dbhd, struct employee_t *);
 
 #endif // !PARSE_H

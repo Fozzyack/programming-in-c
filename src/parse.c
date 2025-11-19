@@ -1,4 +1,5 @@
 #include <arpa/inet.h>
+#include <netinet/in.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -119,12 +120,20 @@ int read_employees(int fd, struct dbheader_t *dbhd,
 
     read(fd, employees, sizeof(struct employee_t) * dbhd->count);
     for (int i = 0; i < dbhd->count; i++) {
-        printf("%s %s %d\n", employees[i].name, employees[i].address,
-               ntohl(employees[i].hours));
         employees[i].hours = ntohl(employees[i].hours);
     }
 
     *employeesOut = employees;
+
+    return STATUS_SUCCESS;
+}
+
+int list_employees(struct dbheader_t *dbhd, struct employee_t *employees) {
+
+    for (int i = 0; i < ntohs(dbhd->count); i++) {
+        struct employee_t emp = employees[i];
+        printf("%s %s %d\n", emp.name, emp.address, ntohl(emp.hours));
+    }
 
     return STATUS_SUCCESS;
 }
